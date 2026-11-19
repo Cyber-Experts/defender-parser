@@ -15,65 +15,58 @@ function resolveSiteUrl(): string {
   if (process.env.VERCEL_URL) {
     return `https://${process.env.VERCEL_URL}`;
   }
-  // 4. Local dev fallback.
-  return "http://localhost:3000";
+  // 4. Local builds: the production origin (canonical, sitemap, OG).
+  return "https://www.defenderparser.com";
 }
 
 export const siteConfig = {
-  name: "SEO Template",
-  shortName: "SEO Template",
+  name: "Defender Parser",
+  shortName: "Defender Parser",
   description:
-    "An SEO-optimized, internationalized Next.js starter built on shadcn/ui and @next-md-blog/core.",
+    "Read Microsoft Defender's quarantine, DetectionHistory, MPLog, Operational event log, MpCmdRun.log and exclusions in your browser: one detection and tampering timeline, quarantined files described and recoverable as an encrypted ZIP. Nothing is uploaded.",
   url: resolveSiteUrl(),
-  twitter: "@your_handle",
-  defaultAuthor: "Your Name",
+  twitter: undefined as string | undefined,
+  defaultAuthor: "Florian Amette",
   authors: [
     {
-      name: "Your Name",
-      url: "https://example.com",
-      twitter: "@your_handle",
+      name: "Florian Amette",
+      url: "https://www.f4k.fr",
       // Square photo (local path under /public or absolute URL). Without one,
       // initials on a brand tint are shown.
       avatar: undefined as string | undefined,
       // E-E-A-T signals (Person JSON-LD). All optional but high-value for
       // authority: who the author is, what they're expert in, and verifiable
       // profiles. `sameAs` is merged with url/twitter/github automatically.
-      bio: "Short author bio establishing expertise and credentials.",
-      jobTitle: "Founder & Editor",
-      knowsAbout: ["SEO", "Next.js", "Web Performance"],
-      sameAs: [
-        "https://www.linkedin.com/in/your-handle",
-        "https://github.com/your-org",
-      ],
+      bio: "DFIR engineer. Author of Defender Parser, PCA Parser, Windows Persistence and the in-browser forensic parser series.",
+      jobTitle: "DFIR engineer",
+      knowsAbout: ["Digital forensics", "Incident response", "Windows forensics", "Microsoft Defender", "Malware triage"],
+      sameAs: [] as string[],
     },
   ],
   defaultOgImage: "/opengraph-image",
   organization: {
-    legalName: "Your Company, Inc.",
+    // Same publisher as the sister parser sites (linuxlog-parser, evtx-parser…).
+    legalName: "Cyber Experts",
     // Raster (PNG) logo — Google requires a bitmap ≥112px for Organization.
     logo: "/apple-icon",
-    foundingDate: "2020-01-01",
-    founder: "Your Name",
+    foundingDate: "2025-01-01",
+    founder: "Florian Amette" as string | undefined,
     // Optional but high-impact: populate this once you have a Wikidata entity.
-    // Example: "https://www.wikidata.org/wiki/Q1234567"
     wikidata: undefined as string | undefined,
-    sameAs: [
-      "https://twitter.com/your_handle",
-      "https://github.com/your-org",
-    ],
+    sameAs: ["https://github.com/Cyber-Experts"] as string[],
     address: {
-      streetAddress: "1 Example Street",
-      addressLocality: "Paris",
-      addressRegion: "Île-de-France",
-      postalCode: "75000",
-      addressCountry: "FR",
+      streetAddress: undefined as string | undefined,
+      addressLocality: undefined as string | undefined,
+      addressRegion: undefined as string | undefined,
+      postalCode: undefined as string | undefined,
+      addressCountry: undefined as string | undefined,
     },
     contactPoint: {
-      email: "hello@example.com",
+      email: "contact@defenderparser.com",
       telephone: undefined as string | undefined,
       contactType: "customer support",
-      areaServed: ["FR", "EU"],
-      availableLanguage: ["en", "fr", "es", "de"],
+      areaServed: [] as string[],
+      availableLanguage: ["en"],
     },
   },
   oembed: {

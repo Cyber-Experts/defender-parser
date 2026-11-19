@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Generated WebAssembly glue, copied unchanged (vendor/evtx/SOURCES.md).
+    "vendor/**",
   ]),
 ]);
 

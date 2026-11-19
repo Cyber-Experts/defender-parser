@@ -1,22 +1,22 @@
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { Archivo, Red_Hat_Mono } from "next/font/google";
 
 /**
- * Typefaces. To change a font, swap the import and constructor here — the
- * CSS variable names stay the same, so nothing else needs to change.
+ * Typefaces: Archivo, a grotesque with a width axis, for everything; headings
+ * set it semi-expanded (`font-stretch` in globals.css) for the confident,
+ * engineered voice of a security tool. Red Hat Mono for paths, hashes, times
+ * and code: compact, calm, unambiguous 0/O and 1/l. Both are self-hosted by
+ * next/font at build time (no runtime font requests).
  *
- * Want a distinct display face for headings (e.g. a serif)? Load it here with
- * `variable: "--font-brand-heading"` and add it to `fontVariables`; headings
- * fall back to the sans font when that variable is unset.
- *
- * OG images can't use next/font — they read `assets/fonts/*.woff` instead.
+ * OG images can't use next/font: they read `assets/fonts/Archivo-*.woff`.
  */
-const sans = Inter({
+const sans = Archivo({
   variable: "--font-brand-sans",
   subsets: ["latin"],
+  axes: ["wdth"],
   display: "swap",
 });
 
-const mono = JetBrains_Mono({
+const mono = Red_Hat_Mono({
   variable: "--font-brand-mono",
   subsets: ["latin"],
   display: "swap",

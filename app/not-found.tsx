@@ -23,27 +23,12 @@ import "./globals.css";
  * user can land somewhere useful in their language.
  */
 
-const COPY: Record<Locale, { heading: string; description: string; home: string }> =
+const COPY: Record<string, { heading: string; description: string; home: string }> =
   {
     en: {
       heading: "Page not found",
       description: "The page you’re looking for doesn’t exist on this site.",
       home: "Go to the homepage",
-    },
-    fr: {
-      heading: "Page introuvable",
-      description: "La page que vous cherchez n’existe pas sur ce site.",
-      home: "Aller à l’accueil",
-    },
-    es: {
-      heading: "Página no encontrada",
-      description: "La página que buscas no existe en este sitio.",
-      home: "Ir al inicio",
-    },
-    de: {
-      heading: "Seite nicht gefunden",
-      description: "Die gesuchte Seite existiert auf dieser Website nicht.",
-      home: "Zur Startseite",
     },
   };
 

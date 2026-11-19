@@ -172,7 +172,7 @@ export default async function BlogPostPage({
           />
         )}
 
-        <div className="mt-8 grid grid-cols-[minmax(0,1fr)] gap-10 lg:grid-cols-[minmax(0,1fr)_240px]">
+        <div className="mt-8 grid grid-cols-[minmax(0,1fr)] gap-10 lg:grid-cols-[minmax(0,46rem)_240px] lg:justify-between">
           <article className="min-w-0">
             <header className="space-y-4 mb-8">
               <h1 className="text-3xl md:text-5xl font-semibold tracking-tight">

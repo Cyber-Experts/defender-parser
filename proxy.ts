@@ -28,6 +28,8 @@ export function proxy(request: NextRequest) {
   if (
     pathname.startsWith("/_next") ||
     pathname.startsWith("/api") ||
+    // Sample files keep their Windows names (FIN-WKS-07/C/ProgramData/Microsoft/Windows Defender/…).
+    pathname.startsWith("/samples/") ||
     pathname === "/robots.txt" ||
     pathname === "/sitemap.xml" ||
     pathname === "/feed.xml" ||

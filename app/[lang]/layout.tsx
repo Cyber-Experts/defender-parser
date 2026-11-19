@@ -14,11 +14,12 @@ import { Analytics } from "@/components/analytics";
 import { WebVitals } from "@/components/web-vitals";
 import { ResourceHints } from "@/components/resource-hints";
 import { Analytics as VercelAnalytics } from "@vercel/analytics/next";
+import { AutoEvents } from "@/components/auto-events";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { WebsiteJsonLd } from "@/components/seo/website-jsonld";
 import { JsonLd } from "@/components/seo/json-ld";
 import { generateOrganizationSchema } from "@next-md-blog/core";
-import { site } from "@/next-md-blog.config";
+import { blog, site } from "@/next-md-blog.config";
 import { getDictionary, hasLocale } from "./dictionaries";
 
 
@@ -97,6 +98,9 @@ export default async function LangLayout({
   const { lang } = await params;
   if (!hasLocale(lang)) notFound();
   const dict = await getDictionary(lang);
+  // The blog stays out of the navigation until it has content.
+  const posts = await blog.getAll({ locale: lang });
+  const sections = { blog: posts.length > 0 };
   return (
     <html
       lang={lang}
@@ -114,14 +118,15 @@ export default async function LangLayout({
           Skip to content
         </a>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          <SiteHeader locale={lang} dict={dict} />
+          <SiteHeader locale={lang} dict={dict} sections={sections} />
           <div className="flex-1">{children}</div>
-          <SiteFooter locale={lang} dict={dict} />
+          <SiteFooter locale={lang} dict={dict} sections={sections} />
         </ThemeProvider>
         <WebsiteJsonLd locale={lang} />
         <JsonLd data={generateOrganizationSchema(site)} />
         <Analytics />
         <WebVitals />
+        <AutoEvents />
         <VercelAnalytics />
         <SpeedInsights />
       </body>

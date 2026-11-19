@@ -19,6 +19,7 @@ export default async function Image({
   const dict = await getDictionary(lang);
   return renderOgImage({
     title: dict.home.heading,
-    description: dict.home.subheading,
+    description: dict.home.ogDescription,
+    eyebrow: dict.home.ogEyebrow,
   });
 }

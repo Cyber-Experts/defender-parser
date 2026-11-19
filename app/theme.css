@@ -10,7 +10,7 @@
  *   3. Utilities  bg-primary, text-muted-foreground…  (wired in globals.css).
  *
  *  Quick recipes
- *   • New brand color:  replace `indigo` below with any Tailwind scale
+ *   • New brand color:  replace `emerald` below with any Tailwind scale
  *                       (violet, blue, emerald, rose, orange…).
  *   • Warmer/cooler UI: replace `zinc` with neutral, slate, gray or stone.
  *   • Rounder/sharper:  change --radius (0 = square, 1rem = pill-ish).
@@ -24,37 +24,44 @@
 
 :root {
   /* 1. Palettes ------------------------------------------------------------ */
-  --brand-50: var(--color-indigo-50);
-  --brand-100: var(--color-indigo-100);
-  --brand-200: var(--color-indigo-200);
-  --brand-300: var(--color-indigo-300);
-  --brand-400: var(--color-indigo-400);
-  --brand-500: var(--color-indigo-500);
-  --brand-600: var(--color-indigo-600);
-  --brand-700: var(--color-indigo-700);
-  --brand-800: var(--color-indigo-800);
-  --brand-900: var(--color-indigo-900);
-  --brand-950: var(--color-indigo-950);
+  /* Emerald, one step darker from 600 up: brand-600 (emerald-700, #007a55)
+     keeps 5.4:1 on white and 5.1:1 on the gray-50 surface, and white button
+     text on it 5.4:1; Tailwind's own emerald-600 (#009966) is 3.7:1 on white.
+     No sister site uses emerald (indigo, fuchsia, violet, teal, blue, cyan,
+     orange and zinc are taken). */
+  --brand-50: var(--color-emerald-50);
+  --brand-100: var(--color-emerald-100);
+  --brand-200: var(--color-emerald-200);
+  --brand-300: var(--color-emerald-300);
+  --brand-400: var(--color-emerald-400);
+  --brand-500: var(--color-emerald-500);
+  --brand-600: var(--color-emerald-700);
+  --brand-700: var(--color-emerald-800);
+  --brand-800: var(--color-emerald-900);
+  --brand-900: var(--color-emerald-950);
+  --brand-950: var(--color-emerald-950);
 
-  --base-50: var(--color-zinc-50);
-  --base-100: var(--color-zinc-100);
-  --base-200: var(--color-zinc-200);
-  --base-300: var(--color-zinc-300);
-  --base-400: var(--color-zinc-400);
-  --base-500: var(--color-zinc-500);
-  --base-600: var(--color-zinc-600);
-  --base-700: var(--color-zinc-700);
-  --base-800: var(--color-zinc-800);
-  --base-900: var(--color-zinc-900);
-  --base-950: var(--color-zinc-950);
+  /* Neutrals tuned toward the brand: a graphite with a trace of green
+     (oklch hue 165, chroma under 0.015), so greys never fight the emerald.
+     Muted text (500) keeps 5.1:1 on white and 4.9:1 on the 50 surface. */
+  --base-50: oklch(0.985 0.003 165);
+  --base-100: oklch(0.967 0.005 165);
+  --base-200: oklch(0.922 0.007 165);
+  --base-300: oklch(0.87 0.009 165);
+  --base-400: oklch(0.708 0.012 165);
+  --base-500: oklch(0.535 0.014 165);
+  --base-600: oklch(0.446 0.014 165);
+  --base-700: oklch(0.373 0.013 165);
+  --base-800: oklch(0.274 0.011 165);
+  --base-900: oklch(0.205 0.01 165);
+  --base-950: oklch(0.148 0.008 165);
 
   /* Shape, layout & type */
-  --radius: 0.625rem;
+  --radius: 0.5rem;
   /* Max width of `.container` (header, pages, footer). */
   --content-width: 72rem;
-  /* Inter character variants: open 4/6/9 and a single-storey "a". Set to
-     `normal` if you switch to a font without them. */
-  --font-features: "cv02", "cv03", "cv04", "cv11";
+  /* Archivo: kerning and standard ligatures only. */
+  --font-features: "kern", "liga";
 
   /* 2. Semantic tokens — light --------------------------------------------- */
   --background: var(--color-white);

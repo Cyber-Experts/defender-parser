@@ -1,0 +1,67 @@
+[
+ {
+  "file": "FIN-WKS-07/C/ProgramData/Microsoft/Windows Defender/Quarantine/Entries/{80073DAE-0000-0000-2E07-94B1C6A3D85F}",
+  "path": "ProgramData/Microsoft/Windows Defender/Quarantine/Entries/{80073DAE-0000-0000-2E07-94B1C6A3D85F}",
+  "mtime": 1782829326962
+ },
+ {
+  "file": "FIN-WKS-07/C/ProgramData/Microsoft/Windows Defender/Quarantine/Entries/{80073DC3-0000-0000-6A3C-1F82D4E0B917}",
+  "path": "ProgramData/Microsoft/Windows Defender/Quarantine/Entries/{80073DC3-0000-0000-6A3C-1F82D4E0B917}",
+  "mtime": 1789380412722
+ },
+ {
+  "file": "FIN-WKS-07/C/ProgramData/Microsoft/Windows Defender/Quarantine/ResourceData/3F/3FE1A734B9FFBC3272915BA315449A52183B7C8B",
+  "path": "ProgramData/Microsoft/Windows Defender/Quarantine/ResourceData/3F/3FE1A734B9FFBC3272915BA315449A52183B7C8B",
+  "mtime": 1789380412716
+ },
+ {
+  "file": "FIN-WKS-07/C/ProgramData/Microsoft/Windows Defender/Quarantine/ResourceData/F8/F8666EA3C2D0FFB4EA6835602E657982669C23B2",
+  "path": "ProgramData/Microsoft/Windows Defender/Quarantine/ResourceData/F8/F8666EA3C2D0FFB4EA6835602E657982669C23B2",
+  "mtime": 1782829326955
+ },
+ {
+  "file": "FIN-WKS-07/C/ProgramData/Microsoft/Windows Defender/Quarantine/Resources/3F/3FE1A734B9FFBC3272915BA315449A52183B7C8B",
+  "path": "ProgramData/Microsoft/Windows Defender/Quarantine/Resources/3F/3FE1A734B9FFBC3272915BA315449A52183B7C8B",
+  "mtime": 1789380412720
+ },
+ {
+  "file": "FIN-WKS-07/C/ProgramData/Microsoft/Windows Defender/Quarantine/Resources/F8/F8666EA3C2D0FFB4EA6835602E657982669C23B2",
+  "path": "ProgramData/Microsoft/Windows Defender/Quarantine/Resources/F8/F8666EA3C2D0FFB4EA6835602E657982669C23B2",
+  "mtime": 1782829326960
+ },
+ {
+  "file": "FIN-WKS-07/C/ProgramData/Microsoft/Windows Defender/Scans/History/Service/DetectionHistory/07/3C9B6E14-7A2D-4F81-9C3E-5B0D2A7F1E68",
+  "path": "ProgramData/Microsoft/Windows Defender/Scans/History/Service/DetectionHistory/07/3C9B6E14-7A2D-4F81-9C3E-5B0D2A7F1E68",
+  "mtime": 1789380412950
+ },
+ {
+  "file": "FIN-WKS-07/C/ProgramData/Microsoft/Windows Defender/Scans/History/Service/DetectionHistory/08/A71F0C55-2E9B-4D36-8B4A-6C1E9D03F2B7",
+  "path": "ProgramData/Microsoft/Windows Defender/Scans/History/Service/DetectionHistory/08/A71F0C55-2E9B-4D36-8B4A-6C1E9D03F2B7",
+  "mtime": 1789380723905
+ },
+ {
+  "file": "FIN-WKS-07/C/ProgramData/Microsoft/Windows Defender/Support/MPDetection-20260901-121532.log",
+  "path": "ProgramData/Microsoft/Windows Defender/Support/MPDetection-20260901-121532.log",
+  "mtime": 1788257734000
+ },
+ {
+  "file": "FIN-WKS-07/C/ProgramData/Microsoft/Windows Defender/Support/MPLog-20260901-121532.log",
+  "path": "ProgramData/Microsoft/Windows Defender/Support/MPLog-20260901-121532.log",
+  "mtime": 1789380943000
+ },
+ {
+  "file": "FIN-WKS-07/C/Windows/System32/config/SOFTWARE",
+  "path": "Windows/System32/config/SOFTWARE",
+  "mtime": 1789383312000
+ },
+ {
+  "file": "FIN-WKS-07/C/Windows/System32/winevt/Logs/Microsoft-Windows-Windows Defender%4Operational.evtx",
+  "path": "Windows/System32/winevt/Logs/Microsoft-Windows-Windows Defender%4Operational.evtx",
+  "mtime": 1789380724000
+ },
+ {
+  "file": "FIN-WKS-07/C/Windows/Temp/MpCmdRun.log",
+  "path": "Windows/Temp/MpCmdRun.log",
+  "mtime": 1789373112000
+ }
+]

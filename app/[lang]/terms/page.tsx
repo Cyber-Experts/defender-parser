@@ -3,7 +3,8 @@ import { notFound } from "next/navigation";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { JsonLd } from "@/components/seo/json-ld";
 import { siteConfig } from "@/site.config";
-import { LOCALES, type Locale } from "@/lib/i18n";
+import { LOCALES } from "@/lib/i18n";
+import { LegalBody } from "@/components/legal-page";
 import { staticPageMetadata } from "@/lib/metadata";
 import { homeCrumb } from "@/lib/breadcrumbs";
 import { getDictionary, hasLocale } from "../dictionaries";
@@ -21,12 +22,8 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { lang } = await params;
   if (!hasLocale(lang)) return {};
-  return staticPageMetadata({
-    lang,
-    path: "/terms",
-    title: "Terms of Service",
-    description: `The terms under which you may use ${siteConfig.name}: acceptable use, intellectual property, disclaimers and limitation of liability.`,
-  });
+  const { termsPage: tp } = await getDictionary(lang);
+  return staticPageMetadata({ lang, path: "/terms", title: tp.title, description: tp.description });
 }
 
 export default async function TermsPage({
@@ -38,7 +35,11 @@ export default async function TermsPage({
   if (!hasLocale(lang)) notFound();
   const locale = lang;
   const dict = await getDictionary(locale);
+  const tp = dict.termsPage;
   const url = `${siteConfig.url}/${lang}/terms`;
+  // "…described in the privacy policy".
+  const pt = dict.privacyPage.title;
+  const privacyLabel = pt.charAt(0).toLowerCase() + pt.slice(1);
   return (
     <>
       <JsonLd
@@ -47,42 +48,18 @@ export default async function TermsPage({
           "@type": "WebPage",
           "@id": url,
           url,
-          name: "Terms of Service",
+          name: tp.title,
+          description: tp.description,
           inLanguage: locale,
           isPartOf: { "@id": `${siteConfig.url}/#website` },
           about: { "@id": `${siteConfig.url}/#organization` },
-          datePublished: "2026-01-01",
+          datePublished: "2026-11-20",
+          dateModified: "2026-11-20",
         }}
       />
-      <main
-        id="main-content"
-        className="container mx-auto px-4 py-12 max-w-3xl prose dark:prose-invert"
-      >
-        <Breadcrumbs
-          items={[homeCrumb(locale, dict), { name: "Terms" }]}
-        />
-        <h1>Terms of Service</h1>
-        <p>
-          <em>Last updated: January 2026.</em>
-        </p>
-        <p>
-          By using {siteConfig.name}, you agree to these terms. Content on this
-          site is provided as-is, without warranties.
-        </p>
-        <h2>Acceptable use</h2>
-        <p>
-          Do not scrape excessively, attempt to disrupt the service, or
-          republish content without attribution.
-        </p>
-        <h2>Liability</h2>
-        <p>
-          {siteConfig.organization.legalName} is not liable for any indirect
-          damages arising from your use of this site.
-        </p>
-        <p>
-          <strong>This text is a placeholder.</strong> Replace with terms
-          reviewed by counsel before launch.
-        </p>
+      <main id="main-content" className="container mx-auto max-w-3xl px-4 py-12 prose dark:prose-invert">
+        <Breadcrumbs items={[homeCrumb(locale, dict), { name: tp.title }]} />
+        <LegalBody text={tp} links={{ privacy: { href: `/${locale}/privacy`, label: privacyLabel } }} />
       </main>
     </>
   );

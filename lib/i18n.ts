@@ -1,4 +1,9 @@
-export const LOCALES = ["en", "fr", "es", "de"] as const;
+/**
+ * English only for the first version: one language until the site has
+ * earned its audience (thin translated duplicates do not help it in search).
+ * Add a locale here, its dictionary and its loader to bring one back.
+ */
+export const LOCALES = ["en"] as const;
 export const DEFAULT_LOCALE = "en" as const;
 
 export type Locale = (typeof LOCALES)[number];
@@ -13,16 +18,10 @@ export function hasLocale(value: string): value is Locale {
 
 export const localeNames: Record<Locale, string> = {
   en: "English",
-  fr: "Français",
-  es: "Español",
-  de: "Deutsch",
 };
 
 export const localeLabels: Record<Locale, string> = {
   en: "EN",
-  fr: "FR",
-  es: "ES",
-  de: "DE",
 };
 
 /**

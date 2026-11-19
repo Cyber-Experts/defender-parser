@@ -14,6 +14,8 @@ import { LOCALES, localeNames, withLocale, type Locale } from "@/lib/i18n";
 export function LocaleSwitcher({ current }: { current: Locale }) {
   const router = useRouter();
   const pathname = usePathname() ?? "/";
+  // One language: nothing to switch to.
+  if (LOCALES.length < 2) return null;
   return (
     <DropdownMenu>
       <DropdownMenuTrigger

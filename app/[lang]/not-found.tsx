@@ -22,7 +22,7 @@ type Copy = {
   search: string;
 };
 
-const COPY: Record<Locale, Copy> = {
+const COPY: Record<string, Copy> = {
   en: {
     eyebrow: "404",
     heading: "Page not found",
@@ -31,33 +31,6 @@ const COPY: Record<Locale, Copy> = {
     home: "Home",
     blog: "Browse the blog",
     search: "Search",
-  },
-  fr: {
-    eyebrow: "404",
-    heading: "Page introuvable",
-    description:
-      "Le lien suivi est peut-être cassé, ou la page a été déplacée. Essayez l’index du blog ou la recherche.",
-    home: "Accueil",
-    blog: "Voir le blog",
-    search: "Rechercher",
-  },
-  es: {
-    eyebrow: "404",
-    heading: "Página no encontrada",
-    description:
-      "El enlace que seguiste puede estar roto, o la página se movió. Prueba el índice del blog o la búsqueda.",
-    home: "Inicio",
-    blog: "Ver el blog",
-    search: "Buscar",
-  },
-  de: {
-    eyebrow: "404",
-    heading: "Seite nicht gefunden",
-    description:
-      "Der Link ist möglicherweise defekt oder die Seite wurde verschoben. Probiere den Blog-Index oder die Suche.",
-    home: "Start",
-    blog: "Zum Blog",
-    search: "Suche",
   },
 };
 

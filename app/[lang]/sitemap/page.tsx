@@ -61,7 +61,7 @@ export default async function HtmlSitemap({
         <h2 className="text-xl font-semibold mb-3">{dict.nav.home}</h2>
         <ul className="list-disc pl-6 space-y-1">
           <li><Link href={`/${locale}`} className="underline">{dict.nav.home}</Link></li>
-          <li><Link href={`/${locale}/blog`} className="underline">{dict.metadata.blogTitle}</Link></li>
+          {posts.length > 0 && <li><Link href={`/${locale}/blog`} className="underline">{dict.metadata.blogTitle}</Link></li>}
           <li><Link href={`/${locale}/search`} className="underline">{dict.metadata.searchTitle}</Link></li>
           <li><Link href={`/${locale}/authors`} className="underline">{dict.authors.title}</Link></li>
         </ul>
@@ -83,6 +83,7 @@ export default async function HtmlSitemap({
           </ul>
         )}
       </section>
+
     </main>
   );
 }

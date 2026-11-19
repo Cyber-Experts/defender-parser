@@ -52,6 +52,7 @@ export default async function SearchPage({
   const posts = await blog.getAll({ locale });
   const items = posts.map((p) => ({
     slug: p.slug,
+    href: `/${locale}/blog/${p.slug}`,
     title: (p.frontmatter.title as string) ?? p.slug,
     description: (p.frontmatter.description as string) ?? "",
     tags: ((p.frontmatter.tags as string[]) ?? []).map((t) => t.toLowerCase()),
@@ -65,7 +66,6 @@ export default async function SearchPage({
       <p className="mt-2 text-muted-foreground">{dict.metadata.searchDescription}</p>
       <SearchClient
         items={items}
-        locale={locale}
         placeholder={dict.search.placeholder}
         noResults={dict.search.noResults}
       />

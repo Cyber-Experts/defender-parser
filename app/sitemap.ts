@@ -8,6 +8,7 @@ import { toAbsoluteUrl } from "@/lib/url";
 import { resolveHeroImage } from "@/lib/frontmatter";
 import { getPublishedAuthors } from "@/lib/authors";
 import { seriesHreflang } from "@/lib/series";
+import { heldBack, sitemapHiddenPaths } from "@/lib/release";
 
 /*
  * Google caps a single sitemap at 50,000 URLs / 50 MB. When you grow past
@@ -17,6 +18,9 @@ import { seriesHreflang } from "@/lib/series";
  */
 
 type Entry = MetadataRoute.Sitemap[number];
+
+// Regenerated hourly: pages with a future `sitemapFrom` (lib/release.ts) join it on that date.
+export const revalidate = 3600;
 
 /**
  * Newest `updated` / `date` across some docs. Used as `<lastmod>` for listing
@@ -186,8 +190,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }),
     buildImageMap(),
   ]);
-  return expandLocales(entries).map((entry) => {
-    const image = imageMap.get(entry.url);
-    return image ? { ...entry, images: [image] } : entry;
-  });
+  // Every page is online; the held-back ones only wait for their sitemap date.
+  const hidden = sitemapHiddenPaths();
+  return expandLocales(entries)
+    .filter((entry) => !heldBack(entry.url, hidden))
+    .map((entry) => {
+      const image = imageMap.get(entry.url);
+      return image ? { ...entry, images: [image] } : entry;
+    });
 }

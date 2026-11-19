@@ -1,8 +1,29 @@
 # Design system
 
-A clean, neutral SaaS look — one brand color on a cool gray base, Inter type,
-soft radii — built so you can rebrand by editing a handful of values rather
-than hunting through components.
+A clean, neutral SaaS look — one brand color on a tinted gray base, soft radii —
+built so you can rebrand by editing a handful of values rather than hunting
+through components.
+
+## Defender Parser identity
+
+- **Type:** Archivo (variable, with its width axis: headings at
+  `font-stretch: 112%`, tight tracking) for text and headings; Red Hat Mono for
+  code, paths, hashes and the tool's labels. Both self-hosted by `next/font`.
+  OG cards use Archivo 400/600/800 from `assets/fonts/` (OFL).
+- **Colour:** emerald brand (`--brand-*` = Tailwind emerald; `--primary` is
+  brand-700 `#007a55` so white text passes 4.5:1), neutrals tinted toward the
+  brand hue (oklch hue 165). Severity colours (red, orange, blue, slate) stay
+  off the brand hue, so green never reads as a verdict.
+- **Mark:** a shield with one horizontal scan line: Defender's shape, read
+  line by line. Stroke shield plus a filled bar on the 32 grid, white on the
+  emerald tile; legible at 16 px.
+- **Shape:** radius 0.5rem; hairline borders; two shadows (`--shadow-soft`
+  for cards, `--shadow-lift` for the workspace and raised panels).
+- **Signature details:** the status pill above the hero ("Runs in your
+  browser · nothing is uploaded", a breathing dot that stops under reduced
+  motion), numbered section headers (`.section-index`), the scan-line rule,
+  graphite code surfaces (`--code-bg`) for terminal blocks and post code,
+  mono uppercase severity badges that always carry the word.
 
 ## Where things live
 
@@ -10,7 +31,7 @@ than hunting through components.
 |---|---|---|
 | Colors, radius, content width, font features | `app/theme.css` | **The file to edit.** Light + dark tokens. |
 | Tailwind wiring (tokens → utilities), base styles, prose | `app/globals.css` | Rarely needs touching. |
-| Fonts | `lib/fonts.ts` | Inter (sans) + JetBrains Mono. |
+| Fonts | `lib/fonts.ts` | Archivo (sans, width axis) + Red Hat Mono. |
 | Logo mark geometry, hex mirror of the palette, OG theme | `lib/brand.ts` | Used by favicon, apple-icon, OG images, manifest. |
 | Logo component | `components/brand/logo.tsx` | `<Logo />` (mark + name), `<LogoMark />`. |
 | Social card layout | `lib/og.tsx` | Every `opengraph-image.tsx` renders `OgCard`. |

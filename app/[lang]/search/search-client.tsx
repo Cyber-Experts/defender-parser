@@ -3,10 +3,11 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { Input } from "@/components/ui/input";
-import type { Locale } from "@/lib/i18n";
 
 type Item = {
   slug: string;
+  /** Page URL. */
+  href: string;
   title: string;
   description: string;
   tags: string[];
@@ -15,12 +16,10 @@ type Item = {
 
 export function SearchClient({
   items,
-  locale,
   placeholder,
   noResults,
 }: {
   items: Item[];
-  locale: Locale;
   placeholder: string;
   noResults: string;
 }) {
@@ -49,9 +48,9 @@ export function SearchClient({
       ) : (
         <ul className="space-y-4" role="list">
           {filtered.map((i) => (
-            <li key={i.slug}>
+            <li key={i.href}>
               <Link
-                href={`/${locale}/blog/${i.slug}`}
+                href={i.href}
                 className="block group"
               >
                 <h2 className="font-semibold group-hover:underline">{i.title}</h2>

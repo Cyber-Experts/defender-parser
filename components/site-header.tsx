@@ -12,9 +12,9 @@ type Dict = {
   toggleTheme: string;
 };
 
-export function SiteHeader({ locale, dict }: { locale: Locale; dict: Dict }) {
+export function SiteHeader({ locale, dict, sections = { blog: true } }: { locale: Locale; dict: Dict; sections?: { blog: boolean } }) {
   const links = [
-    { href: `/${locale}/blog`, label: dict.nav.blog },
+    ...(sections.blog ? [{ href: `/${locale}/blog`, label: dict.nav.blog }] : []),
     { href: `/${locale}/search`, label: dict.nav.search },
   ];
   const contact = { href: `/${locale}/contact`, label: dict.nav.contact };

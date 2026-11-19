@@ -12,15 +12,15 @@ type Dict = {
 
 const linkClass = "text-muted-foreground transition-colors hover:text-foreground";
 
-export function SiteFooter({ locale, dict }: { locale: Locale; dict: Dict }) {
+export function SiteFooter({ locale, dict, sections = { blog: true } }: { locale: Locale; dict: Dict; sections?: { blog: boolean } }) {
   const year = new Date().getFullYear();
   const links = [
-    { href: `/${locale}/blog`, label: dict.nav.blog },
+    ...(sections.blog ? [{ href: `/${locale}/blog`, label: dict.nav.blog }] : []),
     { href: `/${locale}/authors`, label: dict.authors.title },
     { href: `/${locale}/search`, label: dict.nav.search },
     { href: `/${locale}/contact`, label: dict.nav.contact },
     { href: `/${locale}/sitemap`, label: dict.footer.sitemap },
-    { href: `/${locale}/feed.xml`, label: dict.footer.rss },
+    ...(sections.blog ? [{ href: `/${locale}/feed.xml`, label: dict.footer.rss }] : []),
   ];
   return (
     <footer className="mt-24 border-t bg-surface">

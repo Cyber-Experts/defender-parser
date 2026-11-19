@@ -27,6 +27,8 @@ const csp = {
   "script-src": [
     "'self'",
     "'unsafe-inline'",
+    // WebAssembly.instantiate for EVTX Parser's reader (vendor/evtx), used by the analysis worker.
+    "'wasm-unsafe-eval'",
     // React dev mode uses eval() to rebuild call stacks; never in production.
     ...(isDev ? ["'unsafe-eval'"] : []),
     "https://va.vercel-scripts.com",
@@ -46,6 +48,8 @@ const csp = {
     "https://plausible.io",
     "https://*.umami.is",
     "https://www.google-analytics.com",
+    // Borromic's web analytics collector (components/auto-events.tsx).
+    "https://app.borromic.com",
   ],
   "frame-src": [
     "https://www.youtube.com",
@@ -133,8 +137,9 @@ const nextConfig: NextConfig = {
   // `use cache`, replace `export const revalidate = N` with `cacheLife()`,
   // and ensure every `generateStaticParams` returns ≥1 entry.
   // OG image routes read Inter from disk (lib/og.tsx) — ship the files.
+  // The sitemap reads the content again when it revalidates (sitemap schedule, lib/release.ts).
   outputFileTracingIncludes: {
-    "/**": ["./assets/fonts/*.woff"],
+    "/**": ["./assets/fonts/*.woff", "./content/**/*"],
   },
   images: {
     formats: ["image/avif", "image/webp"],
