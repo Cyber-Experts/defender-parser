@@ -23,7 +23,6 @@ export type Dictionary = {
     contact: string;
     menu: string;
   };
-  glossary: { title: string; intro: string };
   authors: {
     title: string;
     description: string;

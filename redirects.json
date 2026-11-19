@@ -3,6 +3,6 @@
     "source": "/old-post-slug",
     "destination": "/en/blog/new-post-slug",
     "permanent": true,
-    "_comment": "Drop entries here when you rename a slug. permanent=true → 301."
+    "_comment": "Drop entries here when you rename a slug. permanent=true → 308."
   }
 ]

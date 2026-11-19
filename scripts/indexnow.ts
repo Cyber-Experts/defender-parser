@@ -11,7 +11,7 @@
  *
  * The endpoint accepts up to 10,000 URLs per request.
  */
-import { blog, glossary } from "../next-md-blog.config";
+import { blog } from "../next-md-blog.config";
 import { siteConfig } from "../site.config";
 import { LOCALES } from "../lib/i18n";
 
@@ -33,8 +33,7 @@ async function main() {
   for (const lang of LOCALES) {
     urls.add(`${siteConfig.url}/${lang}`);
     urls.add(`${siteConfig.url}/${lang}/blog`);
-    urls.add(`${siteConfig.url}/${lang}/glossary`);
-    for (const collection of [blog, glossary]) {
+    for (const collection of [blog]) {
       const docs = await collection.getAll({ locale: lang });
       for (const d of docs) urls.add(collection.url(d.slug, lang));
     }

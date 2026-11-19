@@ -9,7 +9,7 @@ import type { OEmbedResponse } from "@/lib/oembed/types";
  *
  *   GET /oembed?url=<page>&format=json|xml&maxwidth=&maxheight=
  *
- * Returns a `link`-type oEmbed document for any blog/glossary page on this site
+ * Returns a `link`-type oEmbed document for any blog page on this site
  * so other sites can render a rich card when our URLs are pasted. Discovery is
  * advertised via <link rel="alternate" type="application/json+oembed"> tags in
  * each page's <head> (see lib/oembed/resolve.ts).

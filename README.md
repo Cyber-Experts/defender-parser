@@ -9,7 +9,7 @@ This is the base template the Cyber-Courses content sites (e.g. `computer-intern
 - i18n routing via an `app/[lang]` segment
 - SEO scaffolding: sitemap, robots, OpenGraph image, JSON-LD, `llms.txt`
 - shadcn/ui components
-- A Markdown/JSON content pipeline for a blog and a glossary (`content/blog`, `content/glossary`)
+- A Markdown/JSON content pipeline for a blog (`content/blog`; no glossary)
 
 ## Getting started
 

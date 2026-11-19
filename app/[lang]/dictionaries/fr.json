@@ -62,10 +62,6 @@
     "readBlog": "Lire le blog",
     "eyebrow": "Next.js 16 · Tailwind CSS v4 · shadcn/ui"
   },
-  "glossary": {
-    "title": "Glossaire",
-    "intro": "Des définitions claires des termes utilisés sur ce site."
-  },
   "authors": {
     "title": "Auteurs",
     "description": "Découvrez les personnes qui écrivent pour ce site : leur parcours, leurs domaines d’expertise et leurs derniers articles.",

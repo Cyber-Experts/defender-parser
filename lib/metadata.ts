@@ -191,7 +191,7 @@ export function staticPageMetadata(opts: {
 
 /**
  * Build the full per-document Metadata for a collection page (blog post,
- * glossary term, …): hreflang + x-default, the collection's base metadata,
+ * …): hreflang + x-default, the collection's base metadata,
  * timezone-corrected OG times, preview robots, and feed + oEmbed autodiscovery.
  * Pass `twitter` to add the author / reading-time `twitter:label` pairs.
  */
@@ -241,7 +241,7 @@ export async function buildDocumentMetadata(opts: {
   if (meta.twitter && !(meta.twitter as { site?: string }).site) {
     (meta.twitter as { site?: string }).site = siteConfig.twitter;
   }
-  // No hero/OG image in frontmatter (e.g. glossary terms): fall back to the
+  // No hero/OG image in frontmatter: fall back to the
   // locale's default share card. A route-level `opengraph-image` file (blog
   // posts) still takes precedence — file-based metadata overrides config.
   if (!Array.isArray(ogImages) || ogImages.length === 0) {

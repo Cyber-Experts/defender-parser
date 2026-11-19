@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import type { ContentMetadata } from "@next-md-blog/core";
 import { composeSitemap } from "@next-md-blog/core";
-import { blog, glossary } from "@/next-md-blog.config";
+import { blog } from "@/next-md-blog.config";
 import { siteConfig } from "@/site.config";
 import { LOCALES, DEFAULT_LOCALE, hreflangFor } from "@/lib/i18n";
 import { toAbsoluteUrl } from "@/lib/url";
@@ -38,7 +38,7 @@ function newestDate(docs: ContentMetadata[]): Date | undefined {
 
 /** Collect every locale's docs of a collection once. */
 async function allDocs(
-  collection: typeof blog | typeof glossary,
+  collection: typeof blog,
 ): Promise<ContentMetadata[]> {
   const perLocale = await Promise.all(
     LOCALES.map((locale) => collection.getAll({ locale })),
@@ -133,12 +133,12 @@ function escapeXmlUrl(url: string): string {
 }
 
 /**
- * Map each post/term URL to its hero/OG image so the sitemap can carry
+ * Map each post URL to its hero/OG image so the sitemap can carry
  * `<image:image>` entries (Google Images discovery). Built once across locales.
  */
 async function buildImageMap(): Promise<Map<string, string>> {
   const map = new Map<string, string>();
-  for (const collection of [blog, glossary]) {
+  for (const collection of [blog]) {
     for (const locale of LOCALES) {
       const docs = await collection.getAll({ locale });
       for (const doc of docs) {
@@ -156,22 +156,17 @@ async function buildImageMap(): Promise<Map<string, string>> {
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [posts, terms, authors, topics] = await Promise.all([
+  const [posts, authors, topics] = await Promise.all([
     allDocs(blog),
-    allDocs(glossary),
     getPublishedAuthors(),
     topicEntries(),
   ]);
   const lastPost = newestDate(posts);
-  const lastTerm = newestDate(terms);
-  const lastAny = [lastPost, lastTerm]
-    .filter((d): d is Date => !!d)
-    .sort((a, b) => b.getTime() - a.getTime())[0];
+  const lastAny = lastPost;
 
   const staticEntries: Entry[] = [
     staticEntry("", { changeFrequency: "daily", priority: 1, lastModified: lastAny }),
     staticEntry("/blog", { changeFrequency: "weekly", priority: 0.7, lastModified: lastPost }),
-    staticEntry("/glossary", { changeFrequency: "weekly", priority: 0.7, lastModified: lastTerm }),
     staticEntry("/authors", { changeFrequency: "monthly", priority: 0.5 }),
     ...authors.map((a) =>
       staticEntry(`/authors/${a.slug}`, { changeFrequency: "monthly", priority: 0.5 }),
@@ -185,7 +180,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const [entries, imageMap] = await Promise.all([
     composeSitemap({
-      collections: [blog, glossary],
+      collections: [blog],
       locales: LOCALES,
       staticEntries,
     }),
