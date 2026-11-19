@@ -1,0 +1,263 @@
+import type { Metadata } from "next";
+import type { Collection, ContentDoc } from "@next-md-blog/core";
+import { siteConfig } from "@/site.config";
+import { LOCALES, DEFAULT_LOCALE, hreflangFor, type Locale } from "@/lib/i18n";
+import { toIsoDateTime } from "@/lib/schema-dates";
+import { oembedDiscoveryTypes } from "@/lib/oembed/resolve";
+import { ogSize } from "@/lib/og-size";
+import { getImageDims } from "@/lib/image-dims";
+
+/** Google truncates SERP titles around 60 characters. */
+export const MAX_TITLE_LENGTH = 60;
+
+/**
+ * Render a page title with the ` | Site Name` suffix only when the result
+ * still fits in {@link MAX_TITLE_LENGTH}; otherwise return the bare title so
+ * the primary keyword isn't pushed past the SERP cut-off.
+ */
+export function fitTitle(title: string, siteName: string = siteConfig.name): string {
+  const suffixed = `${title} | ${siteName}`;
+  return suffixed.length <= MAX_TITLE_LENGTH ? suffixed : title;
+}
+
+/**
+ * `Metadata["title"]` for a page under the `[lang]` layout: an absolute title
+ * (bypassing the layout's `%s | Site` template) built with {@link fitTitle}.
+ */
+export function pageTitle(title: string): { absolute: string } {
+  return { absolute: fitTitle(title) };
+}
+
+/**
+ * Clamp a meta description to Google's ~160-char snippet width, cutting at a
+ * word boundary and adding an ellipsis when it has to shorten.
+ */
+export function clampDescription(text: string, max = 160): string {
+  const clean = text.replace(/\s+/g, " ").trim();
+  if (clean.length <= max) return clean;
+  const cut = clean.slice(0, max - 1);
+  const space = cut.lastIndexOf(" ");
+  return `${(space > max * 0.6 ? cut.slice(0, space) : cut).replace(/[\s,;:.–—-]+$/, "")}…`;
+}
+
+type Robots = NonNullable<Metadata["robots"]>;
+type AlternateTypes = NonNullable<NonNullable<Metadata["alternates"]>["types"]>;
+
+/**
+ * Yoast emits these snippet directives on every indexable page, on top of
+ * `index, follow`. They let Google show large image previews and uncapped
+ * text/video snippets in the SERP. We mirror them at the top level (the
+ * `<meta name="robots">` tag, matching Yoast) and on googleBot.
+ */
+const PREVIEW = {
+  "max-image-preview": "large",
+  "max-snippet": -1,
+  "max-video-preview": -1,
+} as const;
+
+/**
+ * Build a robots object with Yoast-style preview directives, honouring a
+ * document's `noindex` / `nofollow` frontmatter. A custom `robots` frontmatter
+ * string is respected verbatim (the author opted out of our defaults).
+ */
+export function previewRobots(fm?: {
+  noindex?: boolean;
+  nofollow?: boolean;
+  robots?: string;
+}): Robots {
+  if (fm?.robots) return fm.robots;
+  const index = !fm?.noindex;
+  const follow = !fm?.nofollow;
+  return {
+    index,
+    follow,
+    ...PREVIEW,
+    googleBot: { index, follow, ...PREVIEW },
+  };
+}
+
+/**
+ * RSS autodiscovery `<link>` set — current locale first, then the rest. WP/Yoast
+ * advertise the feed on every page; we keep parity (and add it back on pages
+ * whose `alternates` would otherwise drop the layout-level entry).
+ */
+export function feedDiscoveryTypes(lang: Locale): AlternateTypes {
+  return {
+    "application/rss+xml": [
+      { url: `/${lang}/feed.xml`, title: `${siteConfig.name} — ${lang}` },
+      ...LOCALES.filter((l) => l !== lang).map((l) => ({
+        url: `/${l}/feed.xml`,
+        title: `${siteConfig.name} — ${l}`,
+      })),
+    ],
+  };
+}
+
+/**
+ * Yoast's `twitter:label1/data1` + `label2/data2` pairs (author + estimated
+ * reading time). Returned as an `other` metadata record since Next has no
+ * first-class slot for them.
+ */
+export function articleTwitterLabels(opts: {
+  author?: string;
+  readingTime?: number;
+  labels: { writtenBy: string; estReadingTime: string; readingUnit: string };
+}): Record<string, string> {
+  const out: Record<string, string> = {};
+  if (opts.author) {
+    out["twitter:label1"] = opts.labels.writtenBy;
+    out["twitter:data1"] = opts.author;
+  }
+  if (typeof opts.readingTime === "number") {
+    out["twitter:label2"] = opts.labels.estReadingTime;
+    out["twitter:data2"] = `${opts.readingTime} ${opts.labels.readingUnit}`;
+  }
+  return out;
+}
+
+/**
+ * Complete OpenGraph + Twitter blocks for a page under `[lang]`.
+ *
+ * Next.js replaces (does not merge) the layout's `openGraph` / `twitter`
+ * objects as soon as a page sets its own, and a page that sets neither inherits
+ * the layout's `og:url` / `og:title` (the homepage's). So every non-document
+ * page should return this: it re-adds site name, locale, the per-locale
+ * default share image (`app/[lang]/opengraph-image.tsx`) and a large Twitter
+ * card, with the page's own URL/title/description.
+ */
+export function socialMetadata(opts: {
+  lang: Locale;
+  url: string;
+  title: string;
+  description?: string;
+  type?: "website" | "profile";
+}): Pick<Metadata, "openGraph" | "twitter"> {
+  const { lang, url, title, description, type = "website" } = opts;
+  const image = {
+    url: `/${lang}/opengraph-image`,
+    width: ogSize.width,
+    height: ogSize.height,
+    alt: siteConfig.name,
+    type: "image/png",
+  };
+  return {
+    openGraph: {
+      type,
+      siteName: siteConfig.name,
+      url,
+      title,
+      ...(description ? { description } : {}),
+      locale: lang,
+      alternateLocale: LOCALES.filter((l) => l !== lang),
+      images: [image],
+    },
+    twitter: {
+      card: "summary_large_image",
+      site: siteConfig.twitter,
+      title,
+      ...(description ? { description } : {}),
+      images: [image],
+    },
+  };
+}
+
+/**
+ * Metadata for a simple static page (privacy, terms, contact, …): canonical +
+ * hreflang + full social tags. `path` is the locale-less route (e.g.
+ * `/privacy`).
+ */
+export function staticPageMetadata(opts: {
+  lang: Locale;
+  path: string;
+  title: string;
+  description: string;
+  robots?: Metadata["robots"];
+}): Metadata {
+  const url = `${siteConfig.url}/${opts.lang}${opts.path}`;
+  const description = clampDescription(opts.description);
+  return {
+    metadataBase: new URL(siteConfig.url),
+    title: pageTitle(opts.title),
+    description,
+    alternates: {
+      canonical: url,
+      languages: hreflangFor(siteConfig.url, opts.path),
+      types: feedDiscoveryTypes(opts.lang),
+    },
+    ...socialMetadata({ lang: opts.lang, url, title: opts.title, description }),
+    ...(opts.robots ? { robots: opts.robots } : {}),
+  };
+}
+
+/**
+ * Build the full per-document Metadata for a collection page (blog post,
+ * glossary term, …): hreflang + x-default, the collection's base metadata,
+ * timezone-corrected OG times, preview robots, and feed + oEmbed autodiscovery.
+ * Pass `twitter` to add the author / reading-time `twitter:label` pairs.
+ */
+export async function buildDocumentMetadata(opts: {
+  collection: Collection;
+  doc: ContentDoc;
+  slug: string;
+  locale: Locale;
+  twitter?: Parameters<typeof articleTwitterLabels>[0];
+}): Promise<Metadata> {
+  const { collection, doc, slug, locale, twitter } = opts;
+
+  // Hreflang: only locales that have a translation; x-default → en, else self.
+  const languages = await collection.hreflangMap(slug, LOCALES);
+  const url = collection.url(slug, locale);
+  languages["x-default"] = languages[DEFAULT_LOCALE] ?? url;
+
+  const meta = await collection.metadata(doc, {
+    locale,
+    titleTemplate: "bare",
+    alternateLanguages: languages,
+  });
+  // Suffix with the site name only when it still fits in ~60 chars.
+  meta.title = { absolute: fitTitle(String(meta.title)) };
+
+  // Give OG article times a timezone (Google flags bare dates).
+  const og = meta.openGraph as
+    | { publishedTime?: string; modifiedTime?: string }
+    | undefined;
+  if (og?.publishedTime) og.publishedTime = toIsoDateTime(og.publishedTime);
+  if (og?.modifiedTime) og.modifiedTime = toIsoDateTime(og.modifiedTime);
+
+  // The collection hard-codes 1200×630 on the hero/OG image whatever its real
+  // size; platforms use these to lay out the card, so report the true size.
+  const ogImages = (meta.openGraph as { images?: unknown } | undefined)?.images;
+  if (Array.isArray(ogImages)) {
+    for (const img of ogImages) {
+      if (img && typeof img === "object" && typeof img.url === "string") {
+        // Own-site URLs are files in /public: read them from disk, not HTTP.
+        const src = img.url.startsWith(siteConfig.url)
+          ? img.url.slice(siteConfig.url.length)
+          : img.url;
+        Object.assign(img, await getImageDims(src));
+      }
+    }
+  }
+  if (meta.twitter && !(meta.twitter as { site?: string }).site) {
+    (meta.twitter as { site?: string }).site = siteConfig.twitter;
+  }
+  // No hero/OG image in frontmatter (e.g. glossary terms): fall back to the
+  // locale's default share card. A route-level `opengraph-image` file (blog
+  // posts) still takes precedence — file-based metadata overrides config.
+  if (!Array.isArray(ogImages) || ogImages.length === 0) {
+    const fallback = socialMetadata({ lang: locale, url, title: "" });
+    meta.openGraph = { ...meta.openGraph, images: fallback.openGraph?.images };
+    meta.twitter = { ...meta.twitter, images: fallback.twitter?.images };
+  }
+
+  meta.robots = previewRobots(doc.frontmatter);
+  meta.alternates = {
+    ...meta.alternates,
+    types: { ...feedDiscoveryTypes(locale), ...oembedDiscoveryTypes(url) },
+  };
+  if (twitter) {
+    meta.other = { ...meta.other, ...articleTwitterLabels(twitter) };
+  }
+
+  return { metadataBase: new URL(siteConfig.url), ...meta };
+}

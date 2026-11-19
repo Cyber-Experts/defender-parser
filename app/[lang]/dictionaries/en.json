@@ -1,0 +1,79 @@
+{
+  "metadata": {
+    "homeTitle": "SEO-Optimized Next.js Starter",
+    "homeDescription": "An SEO-optimized, internationalized Next.js starter.",
+    "blogTitle": "Blog",
+    "blogDescription": "Articles, guides and updates from the blog, with new posts on the topics this site covers, published in every supported language.",
+    "searchTitle": "Search",
+    "searchDescription": "Search every blog post on this site by title, summary or tag to quickly find the article or guide you are looking for.",
+    "sitemapTitle": "Sitemap",
+    "sitemapDescription": "A complete list of the pages on this site: the home page, the blog, the search page and every published blog post."
+  },
+  "nav": {
+    "home": "Home",
+    "blog": "Blog",
+    "search": "Search",
+    "contact": "Contact",
+    "menu": "Menu"
+  },
+  "toggleTheme": "Toggle theme",
+  "footer": {
+    "rights": "All rights reserved.",
+    "sitemap": "Sitemap",
+    "rss": "RSS"
+  },
+  "blog": {
+    "tableOfContents": "On this page",
+    "relatedArticles": "Related articles",
+    "readMore": "Read more",
+    "readingTime": "min read",
+    "publishedOn": "Published on",
+    "updatedOn": "Updated on",
+    "byAuthor": "by",
+    "writtenBy": "Written by",
+    "estReadingTime": "Est. reading time",
+    "tags": "Tags",
+    "share": "Share",
+    "noPosts": "No posts yet.",
+    "previous": "Previous",
+    "next": "Next",
+    "page": "Page",
+    "faq": "Frequently asked questions",
+    "tools": "Tools",
+    "supplies": "You'll need",
+    "totalTime": "Time",
+    "result": "Result"
+  },
+  "tag": {
+    "title": "Posts tagged",
+    "back": "Back to all posts"
+  },
+  "search": {
+    "placeholder": "Search posts…",
+    "noResults": "No results."
+  },
+  "notFound": {
+    "title": "Page not found",
+    "cta": "Back to home"
+  },
+  "home": {
+    "heading": "An SEO-first Next.js template.",
+    "subheading": "A clean Tailwind + shadcn/ui design system, a Markdown blog and multilingual SEO — ready to make your own.",
+    "readBlog": "Read the blog",
+    "eyebrow": "Next.js 16 · Tailwind CSS v4 · shadcn/ui"
+  },
+  "glossary": {
+    "title": "Glossary",
+    "intro": "Plain-language definitions of the terms used across this site."
+  },
+  "authors": {
+    "title": "Authors",
+    "description": "Meet the people who write for this site: their background, areas of expertise and latest articles.",
+    "latestArticles": "Latest articles",
+    "article": "article",
+    "articles": "articles",
+    "expertise": "Expertise",
+    "website": "Website",
+    "viewProfile": "View profile"
+  }
+}

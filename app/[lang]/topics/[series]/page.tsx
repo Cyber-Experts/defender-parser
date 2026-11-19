@@ -1,0 +1,143 @@
+import type { Metadata } from "next";
+import { clampDescription, pageTitle, socialMetadata } from "@/lib/metadata";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import type { ContentMetadata } from "@next-md-blog/core";
+
+import { PostCard } from "@/components/post-card";
+import { Breadcrumbs } from "@/components/breadcrumbs";
+import { homeCrumb, blogCrumb } from "@/lib/breadcrumbs";
+import { fmTitle } from "@/lib/frontmatter";
+import { toCollectionItems } from "@/lib/collection";
+import { CollectionJsonLd } from "@/components/seo/collection-jsonld";
+import { blog } from "@/next-md-blog.config";
+import { siteConfig } from "@/site.config";
+import { LOCALES, type Locale } from "@/lib/i18n";
+import { seriesHreflang } from "@/lib/series";
+import { getDictionary, hasLocale } from "../../dictionaries";
+
+type Params = { lang: string; series: string };
+
+/** Recover the human-readable series title from the first matching post. */
+function seriesTitleFromPosts(
+  posts: ContentMetadata[],
+  fallback: string,
+): string {
+  for (const p of posts) {
+    const t = p.frontmatter.seriesTitle;
+    if (typeof t === "string" && t) return t;
+    const raw = p.frontmatter.series;
+    if (typeof raw === "string" && raw) return raw;
+  }
+  return fallback;
+}
+
+export const dynamicParams = false;
+
+export async function generateStaticParams() {
+  const slugs = await blog.getAllSeriesSlugs(LOCALES);
+  const out: Params[] = [];
+  for (const lang of LOCALES) {
+    for (const series of slugs) out.push({ lang, series });
+  }
+  return out;
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<Params>;
+}): Promise<Metadata> {
+  const { lang, series } = await params;
+  if (!hasLocale(lang)) return {};
+  const locale = lang;
+  const posts = await blog.getBySeries(series, { locale });
+  const title = seriesTitleFromPosts(posts, series);
+  const url = `${siteConfig.url}/${lang}/topics/${series}`;
+  const description = clampDescription(
+    `All posts in the "${title}" series on ${siteConfig.name}, in reading order, each with a short summary and a link to the full guide.`,
+  );
+  return {
+    metadataBase: new URL(siteConfig.url),
+    title: pageTitle(title),
+    description,
+    alternates: {
+      canonical: url,
+      languages: await seriesHreflang(series),
+    },
+    ...socialMetadata({ lang: locale, url, title, description }),
+  };
+}
+
+export default async function SeriesPillar({
+  params,
+}: {
+  params: Promise<Params>;
+}) {
+  const { lang, series } = await params;
+  if (!hasLocale(lang)) notFound();
+  const locale = lang;
+  const dict = await getDictionary(locale);
+  const posts = await blog.getBySeries(series, { locale });
+  if (!posts.length) notFound();
+  const title = seriesTitleFromPosts(posts, series);
+  const url = `${siteConfig.url}/${lang}/topics/${series}`;
+
+  return (
+    <>
+      <CollectionJsonLd
+        url={url}
+        name={title}
+        description={`All posts in the "${title}" series.`}
+        inLanguage={locale}
+        items={toCollectionItems(posts, blog, locale)}
+      />
+      <main id="main-content" className="container mx-auto px-4 py-12">
+        <Breadcrumbs
+          items={[
+            homeCrumb(locale, dict),
+            blogCrumb(locale, dict),
+            { name: title },
+          ]}
+        />
+        <header className="mt-6 space-y-3">
+          <p className="text-sm uppercase tracking-wide text-muted-foreground">
+            Series
+          </p>
+          <h1 className="text-3xl md:text-4xl font-semibold tracking-tight">
+            {title}
+          </h1>
+          <p className="text-muted-foreground max-w-2xl">
+            {posts.length} post{posts.length === 1 ? "" : "s"} in this series.
+            Read them in order or jump to any one.
+          </p>
+        </header>
+        <ol className="mt-10 space-y-3 list-decimal pl-6">
+          {posts.map((p) => (
+            <li key={p.slug}>
+              <Link
+                href={`/${locale}/blog/${p.slug}`}
+                className="font-medium hover:underline"
+              >
+                {fmTitle(p)}
+              </Link>
+              {typeof p.frontmatter.description === "string" && (
+                <p className="text-sm text-muted-foreground mt-1">
+                  {p.frontmatter.description}
+                </p>
+              )}
+            </li>
+          ))}
+        </ol>
+        <section className="mt-16">
+          <h2 className="text-xl font-semibold mb-4">All posts in this series</h2>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {posts.map((p) => (
+              <PostCard key={p.slug} post={p} locale={locale} />
+            ))}
+          </div>
+        </section>
+      </main>
+    </>
+  );
+}

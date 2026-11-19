@@ -1,0 +1,79 @@
+{
+  "metadata": {
+    "homeTitle": "Plantilla Next.js optimizada para SEO",
+    "homeDescription": "Plantilla Next.js internacionalizada y optimizada para SEO.",
+    "blogTitle": "Blog",
+    "blogDescription": "Artículos, guías y novedades del blog, con nuevas publicaciones sobre los temas de este sitio, disponibles en todos los idiomas admitidos.",
+    "searchTitle": "Búsqueda",
+    "searchDescription": "Busca en todos los artículos del blog de este sitio por título, resumen o etiqueta para encontrar rápidamente el artículo o la guía que necesitas.",
+    "sitemapTitle": "Mapa del sitio",
+    "sitemapDescription": "La lista completa de las páginas de este sitio: la página de inicio, el blog, la página de búsqueda y todos los artículos publicados."
+  },
+  "nav": {
+    "home": "Inicio",
+    "blog": "Blog",
+    "search": "Búsqueda",
+    "contact": "Contacto",
+    "menu": "Menú"
+  },
+  "toggleTheme": "Cambiar tema",
+  "footer": {
+    "rights": "Todos los derechos reservados.",
+    "sitemap": "Mapa del sitio",
+    "rss": "RSS"
+  },
+  "blog": {
+    "tableOfContents": "En esta página",
+    "relatedArticles": "Artículos relacionados",
+    "readMore": "Leer más",
+    "readingTime": "min de lectura",
+    "publishedOn": "Publicado el",
+    "updatedOn": "Actualizado el",
+    "byAuthor": "por",
+    "writtenBy": "Escrito por",
+    "estReadingTime": "Tiempo de lectura estimado",
+    "tags": "Etiquetas",
+    "share": "Compartir",
+    "noPosts": "Aún no hay artículos.",
+    "previous": "Anterior",
+    "next": "Siguiente",
+    "page": "Página",
+    "faq": "Preguntas frecuentes",
+    "tools": "Herramientas",
+    "supplies": "Necesitarás",
+    "totalTime": "Duración",
+    "result": "Resultado"
+  },
+  "tag": {
+    "title": "Artículos etiquetados",
+    "back": "Volver a los artículos"
+  },
+  "search": {
+    "placeholder": "Buscar artículos…",
+    "noResults": "Sin resultados."
+  },
+  "notFound": {
+    "title": "Página no encontrada",
+    "cta": "Volver al inicio"
+  },
+  "home": {
+    "heading": "Una plantilla Next.js centrada en SEO.",
+    "subheading": "Un sistema de diseño limpio con Tailwind + shadcn/ui, un blog en Markdown y SEO multilingüe, listo para personalizar.",
+    "readBlog": "Leer el blog",
+    "eyebrow": "Next.js 16 · Tailwind CSS v4 · shadcn/ui"
+  },
+  "glossary": {
+    "title": "Glosario",
+    "intro": "Definiciones claras de los términos que se usan en este sitio."
+  },
+  "authors": {
+    "title": "Autores",
+    "description": "Conoce a las personas que escriben para este sitio: su trayectoria, sus áreas de especialidad y sus últimos artículos.",
+    "latestArticles": "Últimos artículos",
+    "article": "artículo",
+    "articles": "artículos",
+    "expertise": "Especialidad",
+    "website": "Sitio web",
+    "viewProfile": "Ver perfil"
+  }
+}
