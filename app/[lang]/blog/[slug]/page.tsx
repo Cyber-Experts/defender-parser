@@ -79,6 +79,7 @@ export async function generateMetadata({
     doc: post,
     slug,
     locale,
+    routeImage: true,
     twitter: {
       author: authorNamesFromFrontmatter(post.frontmatter)[0],
       readingTime: post.readingTime,

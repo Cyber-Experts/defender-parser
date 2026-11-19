@@ -201,8 +201,14 @@ export async function buildDocumentMetadata(opts: {
   slug: string;
   locale: Locale;
   twitter?: Parameters<typeof articleTwitterLabels>[0];
+  /**
+   * The route has its own `opengraph-image` file (blog posts). Next only
+   * applies a file-based image when the page's metadata leaves
+   * `openGraph.images` / `twitter.images` unset, so the fallback is skipped.
+   */
+  routeImage?: boolean;
 }): Promise<Metadata> {
-  const { collection, doc, slug, locale, twitter } = opts;
+  const { collection, doc, slug, locale, twitter, routeImage = false } = opts;
 
   // Hreflang: only locales that have a translation; x-default → en, else self.
   const languages = await collection.hreflangMap(slug, LOCALES);
@@ -241,10 +247,13 @@ export async function buildDocumentMetadata(opts: {
   if (meta.twitter && !(meta.twitter as { site?: string }).site) {
     (meta.twitter as { site?: string }).site = siteConfig.twitter;
   }
-  // No hero/OG image in frontmatter: fall back to the
-  // locale's default share card. A route-level `opengraph-image` file (blog
-  // posts) still takes precedence — file-based metadata overrides config.
-  if (!Array.isArray(ogImages) || ogImages.length === 0) {
+  // No hero/OG image in frontmatter: use the route's own card when it has one
+  // (leave `images` unset so Next picks the file up), else fall back to the
+  // locale's default share card.
+  if ((!Array.isArray(ogImages) || ogImages.length === 0) && routeImage) {
+    if (meta.openGraph) delete (meta.openGraph as { images?: unknown }).images;
+    if (meta.twitter) delete (meta.twitter as { images?: unknown }).images;
+  } else if (!Array.isArray(ogImages) || ogImages.length === 0) {
     const fallback = socialMetadata({ lang: locale, url, title: "" });
     meta.openGraph = { ...meta.openGraph, images: fallback.openGraph?.images };
     meta.twitter = { ...meta.twitter, images: fallback.twitter?.images };
