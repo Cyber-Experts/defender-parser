@@ -37,9 +37,10 @@ const csp = {
     "https://www.googletagmanager.com",
   ],
   "style-src": ["'self'", "'unsafe-inline'"],
-  "img-src": ["'self'", "data:", "blob:", "https:"],
+  // Every image is served from this origin: no content uses remote images.
+  "img-src": ["'self'", "data:", "blob:"],
   "font-src": ["'self'", "data:"],
-  "media-src": ["'self'", "https:"],
+  "media-src": ["'self'"],
   "manifest-src": ["'self'"],
   "worker-src": ["'self'", "blob:"],
   "connect-src": [
@@ -143,7 +144,8 @@ const nextConfig: NextConfig = {
   },
   images: {
     formats: ["image/avif", "image/webp"],
-    remotePatterns: [{ protocol: "https", hostname: "**" }],
+    // No remote images: an open pattern would make /_next/image a proxy for any host.
+    remotePatterns: [],
   },
   async headers() {
     return [{ source: "/(.*)", headers: securityHeaders }];
