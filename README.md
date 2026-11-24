@@ -20,8 +20,13 @@ shows its bytes and never offers a raw download. The only way out is a ZIP
 encrypted with the password `infected`, built on an explicit click after a
 warning.
 
-Domain: defenderparser.com. Sister of [Windows Persistence](https://www.windowspersistence.com)
-and the in-browser parser series; built from `website-template`. English only.
+Live at [defenderparser.com](https://www.defenderparser.com). Sister of
+[Windows Persistence](https://www.windowspersistence.com) and the in-browser
+parser series. English only.
+
+> Defender Parser is an independent project. It is not affiliated with,
+> sponsored or endorsed by Microsoft. Microsoft, Windows and Microsoft Defender
+> are trademarks of the Microsoft group of companies.
 
 ## Engine (`lib/defender/`)
 
@@ -152,7 +157,7 @@ for byte, the pinned hashes and what is flagged.
 ## Development
 
 ```bash
-npm ci                 # npx -y npm@11 install if npm 10 fails in arborist
+npm ci
 npm run dev -- -p 3001 # Disk Image Parser runs on 3000
 npm test               # Vitest: decoders, ZIP, engine, intake, sample, views, release, fuzz
 npm run samples
@@ -171,3 +176,10 @@ npm run build
 - `mpenginedb.db` is not read, hive transaction logs are not replayed, sparse
   quarantined files are not rebuilt.
 - A flag is a reason to look, not a verdict.
+
+## License
+
+[MIT](LICENSE), except the vendored EVTX reader (`vendor/evtx/`,
+`public/evtx_wasm_bg.wasm`), which comes from
+[EVTX Parser](https://github.com/Cyber-Experts/evtx-parser) under the
+[Elastic License 2.0](vendor/evtx/LICENSE).

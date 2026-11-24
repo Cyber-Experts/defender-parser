@@ -2,7 +2,7 @@
 
 import { useCallback, useDeferredValue, useEffect, useMemo, useRef, useState, type DragEvent } from "react";
 import { track } from "@vercel/analytics";
-import { ChevronDown, FileDown, FolderOpen, Lock, Maximize2, Minimize2, ShieldAlert, Sparkles, Upload, X } from "lucide-react";
+import { ChevronDown, FileDown, FolderOpen, Lock, Maximize2, Minimize2, Sparkles, TriangleAlert, Upload, X } from "lucide-react";
 import { LogoMark } from "@/components/brand/logo";
 import { ChangesView } from "@/components/defender/ChangesView";
 import { CollectGuide } from "@/components/defender/CollectGuide";
@@ -269,7 +269,7 @@ export function DefenderTool({ dict }: { dict: ToolDict }) {
       )}
       {errors.map((e) => (
         <p key={e} className="flex items-start gap-2 rounded-lg border border-sev-high/30 bg-sev-high-bg px-3 py-2 text-sm text-sev-high">
-          <ShieldAlert className="mt-0.5 size-4 shrink-0" aria-hidden />
+          <TriangleAlert className="mt-0.5 size-4 shrink-0" aria-hidden />
           {e}
         </p>
       ))}

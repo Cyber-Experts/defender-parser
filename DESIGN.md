@@ -14,9 +14,10 @@ through components.
   brand-700 `#007a55` so white text passes 4.5:1), neutrals tinted toward the
   brand hue (oklch hue 165). Severity colours (red, orange, blue, slate) stay
   off the brand hue, so green never reads as a verdict.
-- **Mark:** a shield with one horizontal scan line: Defender's shape, read
-  line by line. Stroke shield plus a filled bar on the 32 grid, white on the
-  emerald tile; legible at 16 px.
+- **Mark:** log records under a magnifier: four filled bars (one long, three
+  short) and a stroked lens on the 32 grid, white on the emerald tile;
+  legible at 16 px. No shield or other antivirus/vendor imagery: the site is
+  independent of Microsoft and must not look like a Microsoft product.
 - **Shape:** radius 0.5rem; hairline borders; two shadows (`--shadow-soft`
   for cards, `--shadow-lift` for the workspace and raised panels).
 - **Signature details:** the status pill above the hero ("Runs in your

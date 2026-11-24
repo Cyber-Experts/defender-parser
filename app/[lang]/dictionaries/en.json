@@ -18,6 +18,7 @@
     "tool": "Open the tool"
   },
   "toggleTheme": "Toggle theme",
+  "disclaimer": "Independent tool, not affiliated with, sponsored or endorsed by Microsoft. Microsoft Defender is a trademark of the Microsoft group of companies.",
   "footer": {
     "rights": "All rights reserved.",
     "sitemap": "Sitemap",
@@ -64,7 +65,7 @@
     "eyebrow": "Runs in your browser · nothing is uploaded",
     "readsLabel": "What the tool reads",
     "ogDescription": "Quarantine, DetectionHistory, MPLog, event log and exclusions on one detection and tampering timeline.",
-    "ogEyebrow": "Defender forensics"
+    "ogEyebrow": "Endpoint forensics"
   },
   "authors": {
     "title": "Authors",

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { FileQuestion, ShieldQuestion } from "lucide-react";
+import { FileQuestion, Info } from "lucide-react";
 import { SevBadge, formatUtc } from "@/components/defender/bits";
 import { findingHeading, flagTitle, flagWhy, itemLabel, plural, t, type ToolDict } from "@/lib/defender/dict";
 import { isDetection, type Finding, type Item } from "@/lib/defender/view";
@@ -54,7 +54,7 @@ export function FindingsView({ findings, dict, missing, multiHost, onSelect }: {
   return (
     <div className="space-y-3 p-3 sm:p-4">
       <p className="flex items-start gap-2 rounded-xl border border-dashed bg-card px-3 py-2.5 text-sm leading-relaxed">
-        <ShieldQuestion className="mt-0.5 size-4 shrink-0 text-muted-foreground" aria-hidden />
+        <Info className="mt-0.5 size-4 shrink-0 text-muted-foreground" aria-hidden />
         {dict.find_scope}
       </p>
       {missing.length > 0 && (

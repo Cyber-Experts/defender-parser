@@ -46,10 +46,10 @@ export const themeColor = { light: c.white, dark: c.base950 } as const;
 export const logoMark = {
   viewBox: "0 0 32 32",
   radius: 8,
-  /** Filled shape (top layer): the scan line, a parsed record read across the shield. */
-  fill: "M10.75 15.25h10.5a.75.75 0 0 1 0 1.5h-10.5a.75.75 0 0 1 0-1.5Z",
-  /** Stroked shape (bottom layer): a shield. */
-  stroke: "M16 6.25l7.25 2.9v6.1c0 4.55-3.05 8.05-7.25 9.75c-4.2-1.7-7.25-5.2-7.25-9.75v-6.1Z",
+  /** Filled shape: four parsed records, a long one over three short ones. */
+  fill: "M8.5 8.5H23.5a.25.25 0 0 1 0 .5H8.5a.25.25 0 0 1 0-.5ZM8.5 12.5H13a.25.25 0 0 1 0 .5H8.5a.25.25 0 0 1 0-.5ZM8.5 16.5H11.5a.25.25 0 0 1 0 .5H8.5a.25.25 0 0 1 0-.5ZM8.5 20.5H11.5a.25.25 0 0 1 0 .5H8.5a.25.25 0 0 1 0-.5Z",
+  /** Stroked shape: a magnifier reading the records. */
+  stroke: "M19.25 13.5a4.5 4.5 0 1 1 0 9a4.5 4.5 0 1 1 0-9ZM22.5 21.75L25 24.25",
   strokeWidth: 2.25,
 } as const;
 

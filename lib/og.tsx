@@ -10,7 +10,7 @@ export { ogSize };
 /**
  * Branded Open Graph / Twitter card renderer shared by every
  * `opengraph-image.tsx`: a dark graphite card, an emerald glow and a fine
- * grid, the shield mark, the title in Archivo ExtraBold, and the scan line
+ * grid, the records-and-magnifier mark, the title in Archivo ExtraBold, and the scan line
  * with the site's promise at the foot. Colors come from `lib/brand.ts`; the
  * font is Archivo from `assets/fonts` (Satori can't use next/font).
  */

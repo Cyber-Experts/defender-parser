@@ -18,6 +18,8 @@ export type Dictionary = {
     sitemapTitle: string;
     sitemapDescription: string;
   };
+  /** Site-wide strip above the header: no affiliation with Microsoft. */
+  disclaimer: string;
   nav: {
     home: string;
     blog: string;

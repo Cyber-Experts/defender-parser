@@ -118,6 +118,9 @@ export default async function LangLayout({
           Skip to content
         </a>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+          <p className="border-b border-border/60 bg-muted px-4 py-1.5 text-center text-xs text-muted-foreground">
+            {dict.disclaimer}
+          </p>
           <SiteHeader locale={lang} dict={dict} sections={sections} />
           <div className="flex-1">{children}</div>
           <SiteFooter locale={lang} dict={dict} sections={sections} />
