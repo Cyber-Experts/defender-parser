@@ -23,7 +23,7 @@ export const siteConfig = {
   name: "Defender Parser",
   shortName: "Defender Parser",
   description:
-    "Read Microsoft Defender's quarantine, DetectionHistory, MPLog, Operational event log, MpCmdRun.log and exclusions in your browser: one detection and tampering timeline, quarantined files described and recoverable as an encrypted ZIP. Nothing is uploaded.",
+    "Read Defender's quarantine, DetectionHistory, MPLog, Operational event log, MpCmdRun.log and exclusions in your browser: one detection and tampering timeline, quarantined files described and recoverable as an encrypted ZIP. Nothing is uploaded.",
   url: resolveSiteUrl(),
   twitter: undefined as string | undefined,
   defaultAuthor: "Florian Amette",

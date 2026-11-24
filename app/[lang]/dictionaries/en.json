@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "homeTitle": "Defender Parser: Microsoft Defender quarantine, logs and detections viewer",
-    "homeDescription": "Read Microsoft Defender's quarantine, DetectionHistory, MPLog, Operational event log, MpCmdRun.log and exclusions in your browser: one detection timeline, recovered quarantine files as an encrypted ZIP, tampering flagged.",
+    "homeTitle": "Defender Parser: quarantine, logs and detections viewer",
+    "homeDescription": "Read Defender's quarantine, DetectionHistory, MPLog, Operational event log, MpCmdRun.log and exclusions in your browser: one detection timeline, recovered quarantine files as an encrypted ZIP, tampering flagged.",
     "blogTitle": "Blog",
     "blogDescription": "Articles on Microsoft Defender Antivirus forensics: the quarantine, DetectionHistory, MPLog, the Operational log, exclusions and the traces of tampering.",
     "searchTitle": "Search",
