@@ -59,7 +59,7 @@
     "cta": "Back to home"
   },
   "home": {
-    "heading": "Read what Microsoft Defender saw, did and was told to ignore.",
+    "heading": "Read what Defender saw, did and was told to ignore.",
     "subheading": "Its quarantine, DetectionHistory, MPLog, Operational event log, MpCmdRun.log and exclusions, joined into one detection and tampering timeline. Quarantined files are described, never shown, and leave only as an encrypted ZIP.",
     "readBlog": "Read the blog",
     "eyebrow": "Runs in your browser · nothing is uploaded",
